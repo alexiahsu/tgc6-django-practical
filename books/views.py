@@ -9,4 +9,9 @@ from django.shortcuts import render, HttpResponse
 
 
 def index(request):
-    return HttpResponse("Hello World")
+    fname = "Alexia"
+    lname = "Hsu"
+    return render(request, 'books/index.template.html', {
+        'first_name': fname,
+        'last_name': lname
+    })
