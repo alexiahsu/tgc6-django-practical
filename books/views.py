@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect, reverse
 from .models import Book, Author
-from .forms import BookForm
+from .forms import BookForm, AuthorForm
 
 def index(request):
     fname = "Alexia"
@@ -37,6 +37,17 @@ def create_book(request):
     #create an instance of the class BookForm and store it in the form variable
         form = BookForm()
     return render(request, 'books/create_book.template.html', {
+        'form': form
+    })
+
+def create_author(request):
+    if request.method == "POST":
+        form = AuthorForm(request.POST)
+        form.save()
+        return redirect(reverse(show_authors))
+    else:
+        form = AuthorForm()
+    return render(request, 'books/create_author.template.html', {
         'form': form
     })
 

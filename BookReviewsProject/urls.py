@@ -25,6 +25,7 @@ urlpatterns = [
     path('books/all', books.views.show_books),
     path('books/author', books.views.show_authors),
     path('books/create', books.views.create_book),
+    path('books/author/create', books.views.create_author),
     path('reviews/', reviews.views.index),
     path('forum/', forum.views.forum_home)
 ]
