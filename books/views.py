@@ -1,13 +1,6 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect, reverse
 from .models import Book, Author
-
-# Create your views here.
-
-# a view refers to a function
-# that is called when its corresponding URL is visited in the browser
-
-# all view functions must take in the variable request as the first argument
-
+from .forms import BookForm
 
 def index(request):
     fname = "Alexia"
@@ -30,3 +23,20 @@ def show_authors(request):
     return render(request, 'books/authors.template.html', {
         'authors': all_authors
     })
+
+def create_book(request):
+    #check if we are submitting the form
+    if request.method == "POST":
+        print(request.POST)
+        # create the bookform by filling it with data from the user's submission
+        form = BookForm(request.POST)
+        form.save()
+        #redirect back to show_books page
+        return redirect(reverse(show_books))
+    else:
+    #create an instance of the class BookForm and store it in the form variable
+        form = BookForm()
+    return render(request, 'books/create_book.template.html', {
+        'form': form
+    })
+
