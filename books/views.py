@@ -1,4 +1,5 @@
 from django.shortcuts import render, HttpResponse
+from .models import Book, Author
 
 # Create your views here.
 
@@ -14,4 +15,18 @@ def index(request):
     return render(request, 'books/index.template.html', {
         'first_name': fname,
         'last_name': lname
+    })
+
+def show_books(request):
+    # Select * from books
+    all_books = Book.objects.all()
+    #fetch all the objects
+    return render(request, 'books/all_books.template.html', {
+        'books': all_books
+    })
+
+def show_authors(request):
+    all_authors = Author.objects.all()
+    return render(request, 'books/authors.template.html', {
+        'authors': all_authors
     })
