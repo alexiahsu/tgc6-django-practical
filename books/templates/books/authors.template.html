@@ -10,6 +10,7 @@
     <ul>
         {%for author in authors%}
             <li>{{author.first_name}} {{author.last_name}}</li>
+            <a class="btn btn-primary btn-small" href="{% url 'update_author' author_id=author.id %}">Edit</a>
         {%endfor%}
     </ul>
 </body>

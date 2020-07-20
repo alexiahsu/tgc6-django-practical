@@ -66,4 +66,25 @@ def edit_book(request, book_id):
         'form': form
     })
 
+def edit_author(request, author_id):
+    author = get_object_or_404(Author, pk=author_id)
+    if request.method == "POST":
+        form = AuthorForm(request.POST, instance=author)
+        form.save()
+        return redirect(reverse(show_authors))
+    else:
+        form = AuthorForm(instance=author)
+    return render(request, 'books/edit_author.template.html', {
+        'form': form
+    })
+
+def delete_book(request, book_id):
+    book = get_object_or_404(Book, pk=book_id)
+    if request.method == "POST":
+        book.delete()
+        return redirect(reverse(show_books))
+    else:
+        return render(request, 'books/confirm_delete_book.template.html', {
+            'book': book
+        })
 
