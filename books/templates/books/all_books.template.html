@@ -9,7 +9,10 @@
     <h1>All books</h1>
     <ul>
         {%for book in books%}
-            <li>{{book.title}}</li>
+            <li>
+                {{book.title}}
+                <a class="btn btn-primary btn-small" href="{% url 'update_book_route' book_id=book.id %}">Edit</a>
+            </li>
         {%endfor%}
     </ul>
 </body>
