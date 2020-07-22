@@ -37,10 +37,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'crispy_forms',
     'books',
     'reviews',
     'forum'
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -57,7 +64,10 @@ ROOT_URLCONF = 'BookReviewsProject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'templates', 'allauth')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -70,7 +80,44 @@ TEMPLATES = [
     },
 ]
 
+# Authentication backends
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+SITE_ID = 1
+
+# allows user to login by username or email
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+
+#does the user need to provide an email address to register
+ACCOUNT_EMAIL_REQUIRED = True
+
+#does the user need to verify his email
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+
+#does the user need to enter his password twice during registration
+ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
+
+#min length of username
+ACCOUNT_USERNAME_MIN_LENGTH = 4
+
+#which url to go to
+LOGIN_URL = '/accounts/login/'
+
+#which url to go to when the user has successfully logged in
+LOGIN_REDIRECT_URL = '/success'
+
+
 WSGI_APPLICATION = 'BookReviewsProject.wsgi.application'
+
+#simulate DJANGO to send out emails
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 # Database
@@ -125,3 +172,5 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'

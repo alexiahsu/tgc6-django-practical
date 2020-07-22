@@ -1,4 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect, reverse, get_object_or_404
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required, permission_required
 from .models import Book, Author
 from .forms import BookForm, AuthorForm
 
@@ -24,13 +26,15 @@ def show_authors(request):
         'authors': all_authors
     })
 
+@login_required
 def create_book(request):
     #check if we are submitting the form
     if request.method == "POST":
         print(request.POST)
         # create the bookform by filling it with data from the user's submission
         form = BookForm(request.POST)
-        form.save()
+        form.save() #book is created at this point
+        messages.success(request, "New book has been created")
         #redirect back to show_books page
         return redirect(reverse(show_books))
     else:
