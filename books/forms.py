@@ -5,7 +5,7 @@ class BookForm(forms.ModelForm):
     class Meta:
         model = Book
         # tuples are in ()
-        fields = ('title', 'desc', 'ISBN', 'pageCount')
+        fields = ('title', 'desc', 'ISBN', 'pageCount', 'genre', 'category', 'tag', 'authors')
 
 class AuthorForm(forms.ModelForm):
     class Meta:
