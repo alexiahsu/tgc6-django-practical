@@ -22,17 +22,7 @@ import forum.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
-    path('books/', books.views.index),
-    path('books/all', books.views.show_books, name="all_books"),
-    path('books/author', books.views.show_authors),
-    path('books/create', books.views.create_book),
-    path('books/author/create', books.views.create_author),
-    path('books/update/<book_id>', books.views.edit_book,
-         name="update_book_route"),
-    path('books/author/<author_id>', books.views.edit_author,
-         name="update_author"),
-    path('reviews/', reviews.views.index),
-    path('books/delete/<book_id>', books.views.delete_book,
-         name="delete_book"),
+    path('books/', include('books.urls')),
+    path('reviews/', include('reviews.urls')),
     path('forum/', forum.views.forum_home)
 ]
