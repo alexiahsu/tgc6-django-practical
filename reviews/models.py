@@ -17,3 +17,11 @@ class Review(models.Model):
 
     def __str__(self):
         return self.title
+
+class Comment(models.Model):
+    text = models.TextField(blank=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    review = models.ForeignKey(Review, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.text[0:50]

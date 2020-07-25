@@ -5,5 +5,8 @@ import reviews.views
 urlpatterns = [
     path('', reviews.views.index),
     path('create/<book_id>', reviews.views.create_review,
-         name="create_review_route")
+         name="create_review_route"),
+    
+    path('create/review/<review_id', reviews.views.create_comment,
+         name="create_comment_route")
 ]

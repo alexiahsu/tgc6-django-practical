@@ -1,6 +1,8 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404
-from .forms import ReviewForm
+from .forms import ReviewForm, CommentForm
 from books.models import Book
+from .models import Review
+
 
 # Create your views here.
 
@@ -46,3 +48,21 @@ def create_review(request, book_id):
             'book': book
         })
 
+def create_comment(request, review_id):
+    review = get_object_or_404(Review, pk=review_id)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid:
+            comment = form.save(commit=False)
+            comment.review = review
+            comment.user = request.user
+            comment.save()
+            return HttpResponse("Comments created")
+        else:
+            return HttpResponse("Not valid")
+    else:
+        form = CommentForm()
+        return render(request, 'reviews/create_comment.template.html', {
+            'form': form,
+            'review': review
+        })

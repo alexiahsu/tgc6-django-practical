@@ -37,6 +37,7 @@
             {{r.content}}
         </div>
         <p> By {{r.user.username}}</p>
+        <a href="{% url 'create_comment_route' review_id=r.id %}" class="btn btn-primary btn-sm">Leave a comment</a>
     </div>
 </div>
 {%endfor%}
