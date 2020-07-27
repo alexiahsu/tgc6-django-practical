@@ -15,8 +15,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-import books.views
-import reviews.views
 import forum.views
 
 urlpatterns = [
@@ -24,5 +22,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('books/', include('books.urls')),
     path('reviews/', include('reviews.urls')),
-    path('forum/', forum.views.forum_home)
+    path('forum/', forum.views.forum_home),
+    path('cart/', include('cart.urls'))
+
 ]

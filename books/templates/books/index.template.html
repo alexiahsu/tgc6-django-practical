@@ -1,10 +1,24 @@
-{%extends 'base.template.html'%}
-{%load static%}
+{% extends 'base.template.html' %}
+{% load crispy_forms_tags %}
+{%load static %}
 
-{%block content%}
+{%block title%}All Books{%endblock%}
+
+{%block content %}
     {% if request.user.is_authenticated %}
-    <h1>Welcome {{request.user}}</h1>
-    {%endif%}
-    <p>Hi {{first_name}} {{last_name}}</p>
-    <img src="{% static 'pic01.jpg' %}"/>
+    <h1>Welcome, {{request.user}}</h1>
+    {% endif %}
+
+    <form method="GET">
+        {{form|crispy}}
+        <input type="submit" value="Search"/>
+    </form>
+
+    <h2 class="mt-5">Books Found</h2>
+    <ul>
+    {%for b in books %}
+        <li>{{b.title}} ({{b.genre.title}}), number of pages = {{b.pageCount}}</li>
+    {%endfor%}
+    </ul>
+
 {%endblock%}

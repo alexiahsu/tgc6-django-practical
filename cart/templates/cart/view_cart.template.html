@@ -1,0 +1,14 @@
+{% extends 'base.template.html %}
+
+{%block content%}
+<h1>Your shopping cart</h1>
+<ul>
+    {% for key, value in cart.items %}
+    <li>
+        {{value.title}} x {{value.qty}}<br/>
+        Cost: ${{value.cost}}<br/>
+        <a href="#" class="btn btn-primary btn-sm">Remove</a>
+    </li>
+    {%endfor%}
+</ul>
+{%endblock%}
